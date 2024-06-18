@@ -7,20 +7,20 @@ Bem vindo ao banco, para seguir com as operações basta digitar o número corre
 
 =>    """
 
-
+#Estava tendo problemas com alguns bugs de input, o depósito estava aceitando 1e3 por exemplo e contando como se tivesse sido depositado 1000 unidades. Resolvi testar uma função para validar as informações.
 def validar_input(numero):
-    if numero.isdigit():  # Verifica se é um número inteiro
+    if numero.isdigit():  #Verifica se é um número inteiro
         return True
-    elif numero.count('.') == 1:  # Verifica se contém exatamente um ponto decimal
+    elif numero.count('.') == 1:  #Verifica se contém exatamente um ponto decimal
         try:
             float_numero = float(numero)
-            if float_numero >= 0:  # Verifica se pode ser convertido para float não-negativo
+            if float_numero >= 0:  #Verifica se pode ser convertido para float não-negativo
                 return True
         except ValueError:
             pass
     return False
 
-
+#Função de depósito apenas com argumentos posicionais.
 def deposito(saldo, valor_deposito, historico):
     if not validar_input(valor_deposito):
         print("\nEntrada inválida. Por favor, insira um valor numérico positivo.")
@@ -33,7 +33,7 @@ def deposito(saldo, valor_deposito, historico):
 
     return saldo, historico
 
-
+#Função de saque apenas com argumentos keyword-only
 def saque(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
     try:
         saque = float(valor)
@@ -63,14 +63,14 @@ def saque(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
         print("\nEntrada inválida. Por favor insira um valor numérico válido.")
         return saldo, extrato, False
 
-
+#Função de extrato, que apresenta um argumento posicional e um argumento keyword-only.
 def extrato(saldo, *, historico):
     if historico == "":
         return f"Não foram realizadas movimentações.", saldo
     else:
         return historico, saldo
 
-
+#Função principal que desenvolve o aplicativo.
 def main():
     saldo = 0
     limite = 500
